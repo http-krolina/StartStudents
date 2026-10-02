@@ -1,6 +1,6 @@
 # Start Students – Gestão de Alunos
 
-Sistema web para consultar e manter o cadastro de alunos, desenvolvido como desafio técnico do Programa Start (Protótipo 2.0).
+Sistema web para consultar e manter o cadastro de alunos, desenvolvido como desafio técnico.
 
 ## Funcionalidades
 
