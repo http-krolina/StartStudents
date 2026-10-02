@@ -1,0 +1,54 @@
+:host {
+  display: block;
+  min-height: 100vh;
+  background: #131a38;
+  color: #ffffff;
+  padding: 24px;
+}
+
+.aluno-novo {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.aluno-novo h1,
+.aluno-novo label,
+.aluno-novo p,
+.aluno-novo button {
+  color: #ffffff;
+}
+
+.aluno-novo form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.aluno-novo input {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  background: transparent;
+  color: #ffffff;
+  border: 1px solid #ffffff;
+  border-radius: 6px;
+  padding: 10px 12px;
+}
+
+.aluno-novo p {
+  margin: 4px 0 0;
+}
+
+.aluno-novo button {
+  display: block;
+  width: fit-content;
+  border: 1px solid #ffffff;
+  background: transparent;
+  padding: 10px 16px;
+  border-radius: 6px;
+}
+
+.aluno-novo button[type='submit'] {
+  background: #045aaa;
+  border-color: #045aaa;
+}

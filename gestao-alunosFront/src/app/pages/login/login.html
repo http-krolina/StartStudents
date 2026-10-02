@@ -1,0 +1,68 @@
+<div class="login-page">
+  <main class="login-card" aria-labelledby="login-title">
+    <h1 id="login-title" class="login-title">
+      <span class="title-strong">Start</span>&nbsp;<span class="title-regular">Students</span>
+    </h1>
+
+    <p class="login-subtitle">Faça seu login para continuar</p>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" novalidate>
+      <div class="field-group">
+        <label for="usuario" class="field-label">Usuário</label>
+        <input
+          id="usuario"
+          type="text"
+          formControlName="usuario"
+          autocomplete="username"
+          [attr.aria-invalid]="usuario.invalid && usuario.touched"
+          [attr.aria-describedby]="usuario.invalid && usuario.touched ? 'usuario-error' : null"
+          placeholder="Digite seu usuário"
+        />
+        <div
+          *ngIf="usuario.invalid && usuario.touched"
+          id="usuario-error"
+          class="field-error"
+          role="alert"
+        >
+          <span *ngIf="usuario.errors?.['required']">Usuário obrigatório.</span>
+          <span *ngIf="usuario.errors?.['pattern']">Use apenas letras e números, com no mínimo 8 caracteres.</span>
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label for="senha" class="field-label">Senha</label>
+        <input
+          id="senha"
+          type="password"
+          formControlName="senha"
+          autocomplete="current-password"
+          [attr.aria-invalid]="senha.invalid && senha.touched"
+          [attr.aria-describedby]="senha.invalid && senha.touched ? 'senha-error' : null"
+          placeholder="Digite sua senha"
+        />
+        <div
+          *ngIf="senha.invalid && senha.touched"
+          id="senha-error"
+          class="field-error"
+          role="alert"
+        >
+          <span *ngIf="senha.errors?.['required']">Senha obrigatória.</span>
+          <span *ngIf="senha.errors?.['pattern']">A senha deve ter 8 a 20 caracteres, com letra e número.</span>
+        </div>
+      </div>
+
+      <div *ngIf="generalError" class="form-error" role="alert">
+        {{ generalError }}
+      </div>
+
+      <button
+        type="submit"
+        class="login-button"
+        [disabled]="loginForm.invalid || isSubmitting"
+        [attr.aria-busy]="isSubmitting"
+      >
+        {{ isSubmitting ? 'ENTRANDO...' : 'ACESSAR' }}
+      </button>
+    </form>
+  </main>
+</div>

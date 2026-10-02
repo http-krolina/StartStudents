@@ -33,13 +33,13 @@ public class SecurityConfig {
     }
 
     @Bean
-    public SecurityFilterChain FilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .csrf(csrf -> csrf.disable())
             .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/api/auth/login", "/h2-console/**").permitAll()
+                .requestMatchers("/api/auth/login", "/h2-console/**", "/error").permitAll()
                 .anyRequest().authenticated()
             )
                 .exceptionHandling(ex -> ex
@@ -64,7 +64,7 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(List.of("http://localhost:62383")); // Adicione os domínios permitidos aqui
+        config.setAllowedOrigins(List.of("http://localhost:4200")); // Adicione os domínios permitidos aqui
         config.setAllowedHeaders(List.of("Authorization", "Content-Type"));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
 

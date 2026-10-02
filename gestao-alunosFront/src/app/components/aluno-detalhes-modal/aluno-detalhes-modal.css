@@ -1,0 +1,233 @@
+.modal-backdrop {
+	position: fixed;
+	inset: 0;
+	z-index: 1000;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 16px;
+	background: rgba(19, 26, 56, 0.6);
+}
+
+.modal-card {
+	width: min(480px, calc(100vw - 32px));
+	max-height: 90vh;
+	overflow-y: auto;
+	border-radius: 30px;
+	background: #ffffff;
+	padding: 24px;
+	box-shadow: 0 24px 48px rgba(7, 18, 46, 0.28);
+	color: #131a38;
+}
+
+.modal-cabecalho {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	margin-bottom: 20px;
+}
+
+.botao-fechar-topo {
+	width: 36px;
+	height: 36px;
+	border: none;
+	border-radius: 999px;
+	background: transparent;
+	color: #131a38;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	flex: 0 0 auto;
+}
+
+.botao-fechar-topo svg {
+	width: 20px;
+	height: 20px;
+}
+
+.modal-titulo {
+	margin: 0;
+	font-size: 1rem;
+	font-weight: 600;
+	color: #131a38;
+}
+
+.estado-modal {
+	min-height: 240px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 24px 8px 16px;
+	text-align: center;
+	color: #555555;
+	font-size: 1rem;
+}
+
+.estado-erro {
+	flex-direction: column;
+	gap: 16px;
+}
+
+.estado-erro p {
+	margin: 0;
+}
+
+.botao-acao,
+.botao-voltar {
+	border: none;
+	border-radius: 8px;
+	font: inherit;
+	cursor: pointer;
+	transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.botao-acao {
+	min-height: 44px;
+	padding: 0 16px;
+	background: #eef4fb;
+	color: #045aaa;
+	font-weight: 600;
+}
+
+.conteudo-modal {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+}
+
+.foto-area {
+	display: flex;
+	justify-content: center;
+}
+
+.foto-aluno,
+.foto-alterna {
+	width: 110px;
+	height: 130px;
+	border-radius: 8px;
+	border: 1px solid #e0e0e0;
+	box-shadow: 0 8px 16px rgba(7, 18, 46, 0.12);
+	object-fit: cover;
+}
+
+.foto-alterna {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: #f1f3f4;
+	color: #5f6368;
+	font-size: 1.6rem;
+	font-weight: 700;
+	letter-spacing: 0.08em;
+}
+
+.lista-detalhes {
+	margin: 0;
+	display: grid;
+	gap: 12px;
+}
+
+.item-detalhe {
+	margin: 0;
+}
+
+.item-detalhe dt,
+.rotulo-status {
+	margin-bottom: 6px;
+	font-size: 0.8125rem;
+	color: #555555;
+}
+
+.item-detalhe dd {
+	margin: 0;
+}
+
+.campo-texto {
+	min-height: 44px;
+	padding: 0 12px;
+	border: 1px solid #e0e0e0;
+	border-radius: 8px;
+	background: #f7f8fa;
+	color: #131a38;
+	font-size: 0.875rem;
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+
+.icone-campo {
+	width: 18px;
+	height: 18px;
+	color: #8a8a8a;
+	flex: 0 0 auto;
+}
+
+.campo-texto span {
+	overflow-wrap: anywhere;
+}
+
+.status-area {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+}
+
+.status-badge {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	color: #1e7b34;
+	font-size: 0.875rem;
+	font-weight: 600;
+}
+
+.status-inativo {
+	color: #5f6368;
+}
+
+.status-dot {
+	width: 8px;
+	height: 8px;
+	border-radius: 999px;
+	background: currentColor;
+	flex: 0 0 auto;
+}
+
+.botao-voltar {
+	width: 100%;
+	min-height: 44px;
+	background: #e4e6eb;
+	color: #555555;
+	font-weight: 600;
+}
+
+.botao-fechar-topo:hover,
+.botao-fechar-topo:focus-visible,
+.botao-acao:hover,
+.botao-acao:focus-visible {
+	background: #045aaa;
+	color: #ffffff;
+	box-shadow: 0 0 0 2px rgba(4, 90, 170, 0.15);
+}
+
+.botao-fechar-topo:focus-visible,
+.botao-acao:focus-visible,
+.botao-voltar:focus-visible {
+	outline: none;
+}
+
+.botao-voltar:hover,
+.botao-voltar:focus-visible {
+	background: #005bab;
+	color: #ffffff;
+	box-shadow: 0 0 0 2px rgba(0, 91, 171, 0.15);
+}
+
+@media (max-width: 640px) {
+	.modal-card {
+		width: min(100%, calc(100vw - 32px));
+		padding: 20px;
+		border-radius: 24px;
+	}
+}
