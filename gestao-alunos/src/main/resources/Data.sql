@@ -1,0 +1,30 @@
+MERGE INTO usuario (login, senha_hash, perfil) KEY (login) VALUES
+    ('admin001', '$2a$14$2F9NBJqW/6Coooo2SugcDeyba9mqNHYKuPPb/uKIt6mup76HKjpFK', 'ADMINISTRADOR'),
+    ('leitor01', '$2a$14$BTX6.onVo1z4Kn63TjRuguvNFcVVbGX3mg7h3UhPusKnz4JA3CWyO', 'LEITOR');
+
+MERGE INTO aluno (matricula, nome, email, cpf, telefone, status) KEY (cpf) VALUES
+    ('20260001', 'Ana Beatriz Lima', 'ana.beatriz.lima@email.com', '28868251825', '81981001234', 'ATIVO'),
+    ('20260002', 'Bruno Carvalho Souza', 'bruno.carvalho.souza@email.com', '73252548143', '81981002468', 'ATIVO'),
+    ('20260003', 'Camila Ferreira Rocha', 'camila.ferreira.rocha@email.com', '86374531124', '81981003702', 'ATIVO'),
+    ('20260004', 'Daniel Alves Pereira', 'daniel.alves.pereira@email.com', '71485182298', '81981004936', 'ATIVO'),
+    ('20260005', 'Eduarda Martins Costa', 'eduarda.martins.costa@email.com', '20425082920', '81981006170', 'ATIVO'),
+    ('20260006', 'Felipe Barbosa Nunes', 'felipe.barbosa.nunes@email.com', '49923780481', '81981007404', 'ATIVO'),
+    ('20260007', 'Gabriela Ribeiro Dias', 'gabriela.ribeiro.dias@email.com', '01712321510', '81981008638', 'INATIVO'),
+    ('20260008', 'Henrique Teixeira Melo', 'henrique.teixeira.melo@email.com', '35269001241', '81981009872', 'ATIVO'),
+    ('20260009', 'Isabela Gomes Cardoso', 'isabela.gomes.cardoso@email.com', '23357792222', '81981011106', 'ATIVO'),
+    ('20260010', 'João Pedro Almeida', 'joao.pedro.almeida@email.com', '27109169910', '81981012340', 'ATIVO'),
+    ('20260011', 'Karina Lopes Monteiro', 'karina.lopes.monteiro@email.com', '71503442918', '81981013574', 'ATIVO'),
+    ('20260012', 'Lucas Oliveira Santos', 'lucas.oliveira.santos@email.com', '65403881107', '81981014808', 'ATIVO'),
+    ('20260013', 'Mariana Castro Freitas', 'mariana.castro.freitas@email.com', '48949148161', '81981016042', 'ATIVO'),
+    ('20260014', 'Natália Pinto Araújo', 'natalia.pinto.araujo@email.com', '56974118988', '81981017276', 'INATIVO'),
+    ('20260015', 'Otávio Moreira Lima', 'otavio.moreira.lima@email.com', '68297227723', '81981018510', 'ATIVO'),
+    ('20260016', 'Paula Cristina Duarte', 'paula.cristina.duarte@email.com', '00117437603', '81981019744', 'ATIVO'),
+    ('20260017', 'Rafael Mendes Vieira', 'rafael.mendes.vieira@email.com', '23033305806', '81981020978', 'ATIVO'),
+    ('20260018', 'Sabrina Correia Batista', 'sabrina.correia.batista@email.com', '43393423860', '81981022212', 'ATIVO'),
+    ('20260019', 'Thiago Nascimento Reis', 'thiago.nascimento.reis@email.com', '58839538160', '81981023446', 'ATIVO'),
+    ('20260020', 'Vinícius Ramos Cunha', 'vinicius.ramos.cunha@email.com', '74694810790', '81981024680', 'ATIVO'),
+    ('20260021', 'Wesley Antunes Moura', 'wesley.antunes.moura@email.com', '13276137356', '81981025914', 'INATIVO'),
+    ('20260022', 'Yasmin Rezende Prado', 'yasmin.rezende.prado@email.com', '05966332703', '81981027148', 'ATIVO'),
+    ('20260023', 'Amanda Siqueira Lopes', 'amanda.siqueira.lopes@email.com', '34266544740', '81981028382', 'ATIVO'),
+    ('20260024', 'Bernardo Queiroz Leal', 'bernardo.queiroz.leal@email.com', '32817307879', '81981029616', 'ATIVO'),
+    ('20260025', 'Clara Valente Torres', 'clara.valente.torres@email.com', '92539587070', '81981030850', 'ATIVO');
