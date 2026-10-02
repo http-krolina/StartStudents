@@ -1,0 +1,12 @@
+# Banco H2 (gerado ao rodar a aplicação)
+*.mv.db
+*.trace.db
+data/
+
+# Variáveis de ambiente
+.env
+
+# Sistema operacional e IDE
+.DS_Store
+Thumbs.db
+.idea/
