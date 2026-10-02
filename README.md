@@ -25,7 +25,7 @@ Sistema web para consultar e manter o cadastro de alunos, desenvolvido como desa
 
 ```
 gestao-alunos/          → back-end (Spring Boot)
-gestao-alunos-front/    → front-end (Angular)
+gestao-alunosFront/    → front-end (Angular)
 ```
 
 ## Pré-requisitos
