@@ -15,6 +15,7 @@ import { Subject, Subscription, debounceTime, distinctUntilChanged, takeUntil } 
 import { AlunoLista } from '../../models/aluno-lista';
 import { StatusAluno } from '../../models/status-aluno';
 import { AlunoDetalhesModalComponent } from '../../components/aluno-detalhes-modal/aluno-detalhes-modal';
+import { AlunoEdicaoModalComponent } from '../../components/aluno-edicao-modal/aluno-edicao-modal';
 import { AlunoService } from '../../services/aluno.service';
 import { AuthService } from '../../services/auth';
 
@@ -26,7 +27,7 @@ type ItemPaginacao = number | '...';
 @Component({
   selector: 'app-pagina-inicial',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, AlunoDetalhesModalComponent],
+  imports: [CommonModule, ReactiveFormsModule, AlunoDetalhesModalComponent, AlunoEdicaoModalComponent],
   templateUrl: './pagina-inicial.html',
   styleUrl: './pagina-inicial.css',
 })
@@ -44,6 +45,8 @@ export class PaginaInicialComponent implements OnInit, OnDestroy {
   private isApplyingQueryParams = false;
   private lastLoadedQueryKey: string | null = null;
   private ultimoElementoDetalhes: HTMLElement | null = null;
+  private ultimoElementoEdicao: HTMLElement | null = null;
+  private ultimoIdEdicao: number | null = null;
 
   readonly buscaControl = new FormControl('', { nonNullable: true });
   readonly statusControl = new FormControl<StatusFiltro>('TODOS', { nonNullable: true });
@@ -61,6 +64,7 @@ export class PaginaInicialComponent implements OnInit, OnDestroy {
   menuUsuarioAberto = false;
   mensagemAcao = '';
   alunoDetalheSelecionadoId: number | null = null;
+  alunoEdicaoSelecionadoId: number | null = null;
 
   readonly perfil = this.authService.obterPerfil();
   readonly login = this.authService.obterLogin() ?? '';
@@ -272,10 +276,37 @@ export class PaginaInicialComponent implements OnInit, OnDestroy {
     this.alunoDetalheSelecionadoId = id;
   }
 
-  editar(id: number): void {
-    void id;
-    // implementar na próxima feature
-    this.mostrarMensagemAcao('Edição de aluno');
+  editar(id: number, evento?: Event): void {
+    const alvo = evento?.currentTarget instanceof HTMLElement ? evento.currentTarget : this.document.activeElement;
+    this.ultimoElementoEdicao = alvo instanceof HTMLElement ? alvo : null;
+    this.ultimoIdEdicao = id;
+    this.mensagemAcao = '';
+    this.alunoEdicaoSelecionadoId = id;
+  }
+
+  fecharEdicao(): void {
+    this.alunoEdicaoSelecionadoId = null;
+    this.devolverFocoEdicao();
+  }
+
+  aoSalvarEdicao(): void {
+    this.alunoEdicaoSelecionadoId = null;
+    this.mensagemAcao = 'Aluno atualizado com sucesso.';
+    this.carregarAlunos();
+    this.devolverFocoEdicao();
+  }
+
+  private devolverFocoEdicao(): void {
+    const id = this.ultimoIdEdicao;
+    const anterior = this.ultimoElementoEdicao;
+    this.ultimoElementoEdicao = null;
+    this.ultimoIdEdicao = null;
+
+    setTimeout(() => {
+      const raiz = this.elementRef.nativeElement as HTMLElement;
+      const atual = raiz.querySelector<HTMLElement>(`[data-editar-id="${id}"]`);
+      (atual ?? anterior)?.focus();
+    });
   }
 
   fecharDetalhes(): void {

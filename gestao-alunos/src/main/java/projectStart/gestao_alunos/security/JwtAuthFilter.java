@@ -13,6 +13,7 @@ import projectStart.gestao_alunos.service.UsuarioService;
 
 import java.io.IOException;
 
+// filtro que intercepta todas as requisições e valida o token JWT
 @Component
 public class JwtAuthFilter extends OncePerRequestFilter {
 

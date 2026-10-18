@@ -4,6 +4,7 @@ import { map, Observable } from 'rxjs';
 
 import { AlunoCadastro } from '../models/aluno-cadastro';
 import { AlunoDetalhe } from '../models/aluno-detalhe';
+import { AlunoEdicao } from '../models/aluno-edicao';
 import { AlunoLista } from '../models/aluno-lista';
 import { PaginaResponse } from '../models/pagina-response';
 import { StatusAluno } from '../models/status-aluno';
@@ -42,6 +43,10 @@ export class AlunoService {
 
   buscarPorId(id: number): Observable<AlunoDetalhe> {
     return this.http.get<AlunoDetalhe>(`${this.apiUrl}/${id}`);
+  }
+
+  atualizar(id: number, dados: AlunoEdicao): Observable<AlunoDetalhe> {
+    return this.http.patch<AlunoDetalhe>(`${this.apiUrl}/${id}`, dados);
   }
 
   listar(filtros: ListarAlunosFiltros): Observable<PaginaResponse<AlunoLista>> {

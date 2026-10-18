@@ -23,7 +23,7 @@ public class GlobalExceptionHandler {
                 .body(new ErroValidarResponse("Existem campos inválidos", erros));
     }
 
-    // 409: CPF ou e-mail já cadastrado (CA-06)
+    // 409: CPF ou e-mail já cadastrado
     @ExceptionHandler(ConflitoException.class)
     public ResponseEntity<ErroValidarResponse> conflito(ConflitoException ex) {
         return ResponseEntity.status(HttpStatus.CONFLICT)
@@ -31,7 +31,7 @@ public class GlobalExceptionHandler {
                         List.of(new ErroValidarResponse.CampoErro(ex.getCampo(), ex.getMessage()))));
     }
 
-    // 404: Recurso não encontrado
+    // 404: aluno não encontrado
     @ExceptionHandler(NaoEncontradoException.class)
     public ResponseEntity<ErroResponse> naoEncontrado(NaoEncontradoException ex) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND)

@@ -11,6 +11,7 @@ import javax.crypto.SecretKey;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
 
+// token é gerado com login, perfil e validação de 1 hr
 @Service
 public class JwtService {
 

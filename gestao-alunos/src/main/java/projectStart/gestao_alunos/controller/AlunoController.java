@@ -5,10 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import projectStart.gestao_alunos.domain.StatusAluno;
-import projectStart.gestao_alunos.dto.AlunoCadastroRequest;
-import projectStart.gestao_alunos.dto.AlunoDetalheResponse;
-import projectStart.gestao_alunos.dto.AlunoListaResponse;
-import projectStart.gestao_alunos.dto.PageResponse;
+import projectStart.gestao_alunos.dto.*;
 import projectStart.gestao_alunos.service.AlunoService;
 
 import java.net.URI;
@@ -50,5 +47,19 @@ public class AlunoController {
     @PreAuthorize("hasAnyRole('ADMINISTRADOR', 'LEITOR')")
     public ResponseEntity<AlunoDetalheResponse> buscarPorId(@PathVariable Long id) {
         return ResponseEntity.ok(alunoService.buscarPorId(id));
+    }
+
+    @PatchMapping("/{id}")
+    @PreAuthorize("hasRole('ADMINISTRADOR')")
+    public ResponseEntity<AlunoDetalheResponse> atualizar(@PathVariable Long id, @Valid @RequestBody AlunoEditarRequest request) {
+        AlunoDetalheResponse atualizado = alunoService.atualizar(id, request);
+        return ResponseEntity.ok(atualizado);
+    }
+
+    @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMINISTRADOR')")
+    public ResponseEntity<Void> deletar(@PathVariable Long id) {
+        alunoService.inativar(id);
+        return ResponseEntity.noContent().build();
     }
 }

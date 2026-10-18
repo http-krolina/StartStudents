@@ -30,3 +30,8 @@
 | 0026 | [Detalhes do aluno em texto descritivo com lista de definição](0026-detalhes-aluno-texto-descritivo-dl.md) | Aceito |
 | 0027 | [Alternativa neutra para aluno sem foto](0027-alternativa-neutra-sem-foto.md) | Aceito |
 | 0028 | [Foco preso e devolvido ao fechar o modal de detalhes](0028-foco-preso-e-retorno-modal-detalhes.md) | Aceito |
+| 0029 | [Edição de aluno em modal sobre a listagem](0029-edicao-aluno-modal-sobre-listagem.md) | Aceito |
+| 0030 | [Detecção de mudança comparando com os valores originais (RN-034 a RN-036)](0030-deteccao-mudanca-valores-originais.md) | Aceito |
+| 0031 | [Status do aluno como opção de marcar na edição](0031-status-opcao-de-marcar-na-edicao.md) | Aceito |
+| 0032 | [Envio apenas dos campos alterados via PATCH](0032-patch-somente-campos-alterados.md) | Aceito |
+| 0033 | [Confirmação ao sair da edição com alterações não salvas (RN-039)](0033-confirmacao-saida-alteracoes-nao-salvas.md) | Aceito |

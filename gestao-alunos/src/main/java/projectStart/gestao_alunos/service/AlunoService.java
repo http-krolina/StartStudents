@@ -8,16 +8,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import projectStart.gestao_alunos.domain.Aluno;
 import projectStart.gestao_alunos.domain.StatusAluno;
-import projectStart.gestao_alunos.dto.AlunoCadastroRequest;
-import projectStart.gestao_alunos.dto.AlunoDetalheResponse;
-import projectStart.gestao_alunos.dto.AlunoListaResponse;
-import projectStart.gestao_alunos.dto.PageResponse;
+import projectStart.gestao_alunos.dto.*;
 import projectStart.gestao_alunos.exception.ConflitoException;
 import projectStart.gestao_alunos.exception.NaoEncontradoException;
 import projectStart.gestao_alunos.repository.AlunoRepository;
 
 import java.time.Year;
 import java.util.Set;
+import java.util.function.Consumer;
 
 @Service
 public class AlunoService {
@@ -56,12 +54,9 @@ public class AlunoService {
             return PageResponse.of(resultado);
         }
 
-    // ===================== CADASTRO =====================
-
     @Transactional
     public AlunoDetalheResponse cadastrar(AlunoCadastroRequest request) {
-        // Formato já foi validado pelas anotações do Request (@CPF, @Pattern...).
-        // Aqui só normalizamos para salvar sempre no mesmo padrão.
+
         String cpf = request.cpf().replaceAll("\\D", "");
         String telefone = request.telefone().replaceAll("\\D", "");
         String email = request.email().trim().toLowerCase();
@@ -86,9 +81,6 @@ public class AlunoService {
         return AlunoDetalheResponse.de(alunoRepository.save(aluno));
     }
 
-    // ===================== AUXILIARES =====================
-
-    // Ano atual + sequência de 4 dígitos: 20260025 -> 20260026
     private String gerarMatricula() {
         String prefixo = String.valueOf(Year.now().getValue());
 
@@ -111,5 +103,43 @@ public class AlunoService {
             return alunoRepository.findById(id)
                     .map(AlunoDetalheResponse::de)
                     .orElseThrow(() -> new NaoEncontradoException("Aluno não encontrado"));
+        }
+
+    @Transactional
+    public AlunoDetalheResponse atualizar(Long id, AlunoEditarRequest request) {
+        Aluno aluno = alunoRepository.findById(id)
+                .orElseThrow(() -> new NaoEncontradoException("Aluno não encontrado"));
+
+        seInformado(request.email(),    email -> atualizarEmail(aluno, email));
+        seInformado(request.nome(),     nome  -> aluno.setNome(nome.trim().replaceAll("\\s+", " ")));
+        seInformado(request.telefone(), tel   -> aluno.setTelefone(tel.replaceAll("\\D", "")));
+        seInformado(request.status(),   aluno::setStatus);
+
+        return AlunoDetalheResponse.de(alunoRepository.save(aluno));
+    }
+
+    private <T> void seInformado(T valor, Consumer<T> acao) {
+        if (valor != null) {
+            acao.accept(valor);
+        }
+    }
+
+    private void atualizarEmail(Aluno aluno, String email) {
+        String normalizado = email.trim().toLowerCase();
+        if (!aluno.getEmail().equalsIgnoreCase(normalizado)
+                && alunoRepository.existsByEmailIgnoreCase(normalizado)) {
+            throw new ConflitoException("email", "Já existe um aluno com este e-mail");
+        }
+        aluno.setEmail(normalizado);
+    }
+
+
+    @Transactional
+        public void inativar(Long id) {
+            Aluno aluno = alunoRepository.findById(id)
+                    .orElseThrow(() -> new NaoEncontradoException("Aluno não encontrado"));
+
+            aluno.setStatus(StatusAluno.INATIVO);
+            alunoRepository.save(aluno);
         }
 }
