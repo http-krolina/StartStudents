@@ -1,9 +1,6 @@
 # Título
 Busca com debounce e escolha automática entre nome e matrícula
 
-## Data
-2026-10-01
-
 ## Status
 Aceito
 

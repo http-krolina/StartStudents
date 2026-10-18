@@ -1,8 +1,6 @@
 # Título
 Erros do servidor associados aos campos do formulário
 
-## Data
-2026-10-02
 
 ## Status
 Aceito

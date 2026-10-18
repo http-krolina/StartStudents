@@ -1,8 +1,6 @@
 # Título
 Visibilidade das ações da lista conforme o perfil do usuário
 
-## Data
-2026-10-01
 
 ## Status
 Aceito

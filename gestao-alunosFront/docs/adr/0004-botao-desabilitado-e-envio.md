@@ -1,8 +1,6 @@
 # Título
 Botão desabilitado e estado de envio
 
-## Data
-2026-09-30
 
 ## Status
 Aceito

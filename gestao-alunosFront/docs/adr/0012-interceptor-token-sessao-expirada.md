@@ -1,8 +1,6 @@
 # Título
 Interceptor para anexar token e tratar sessão expirada
 
-## Data
-2026-10-01
 
 ## Status
 Aceito

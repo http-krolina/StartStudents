@@ -1,9 +1,6 @@
 # Título
 Paginação no servidor para a listagem de alunos
 
-## Data
-2026-10-01
-
 ## Status
 Aceito
 

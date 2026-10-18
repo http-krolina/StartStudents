@@ -1,8 +1,6 @@
 # Título
 Detalhes do aluno em modal sobre a listagem
 
-## Data
-2026-10-02
 
 ## Status
 Aceito

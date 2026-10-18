@@ -1,9 +1,6 @@
 # Título
 Criação de uma página inicial provisória para validar o login
 
-## Data
-2026-09-30
-
 ## Status
 Substituído
 

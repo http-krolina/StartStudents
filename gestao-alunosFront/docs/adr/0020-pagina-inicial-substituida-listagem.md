@@ -1,8 +1,6 @@
 # Título
 Substituição da página inicial provisória pela listagem de alunos
 
-## Data
-2026-10-01
 
 ## Status
 Aceito

@@ -1,8 +1,6 @@
 # Título
 Foco preso e devolvido ao fechar o modal de detalhes
 
-## Data
-2026-10-02
 
 ## Status
 Aceito

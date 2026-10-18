@@ -1,8 +1,6 @@
 # Título
 Guard de perfil e guard de alterações pendentes
 
-## Data
-2026-10-02
 
 ## Status
 Aceito

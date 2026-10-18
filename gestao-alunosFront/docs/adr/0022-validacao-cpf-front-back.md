@@ -1,8 +1,6 @@
 # Título
 Validação de CPF no front com validador customizado e no back com @CPF
 
-## Data
-2026-10-02
 
 ## Status
 Aceito

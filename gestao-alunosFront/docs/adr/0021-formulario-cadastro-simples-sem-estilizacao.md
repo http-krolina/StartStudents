@@ -1,9 +1,6 @@
 # Título
 Formulário de cadastro simples, sem estilização nesta entrega
 
-## Data
-2026-10-02
-
 ## Status
 Aceito
 

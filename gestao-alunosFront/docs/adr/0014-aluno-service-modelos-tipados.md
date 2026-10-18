@@ -1,9 +1,6 @@
 # Título
 AlunoService e modelos tipados para a API de alunos
 
-## Data
-2026-10-01
-
 ## Status
 Aceito
 

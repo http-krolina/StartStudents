@@ -1,8 +1,6 @@
 # Título
 Status com texto e indicador visual combinado
 
-## Data
-2026-10-01
 
 ## Status
 Aceito

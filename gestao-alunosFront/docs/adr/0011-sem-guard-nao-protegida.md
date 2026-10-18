@@ -1,8 +1,6 @@
 # Título
 Registro consciente de que a rota ainda não é protegida (sem guard)
 
-## Data
-2026-09-30
 
 ## Status
 Substituído

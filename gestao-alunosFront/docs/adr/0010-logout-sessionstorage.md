@@ -1,9 +1,6 @@
 # Título
 Logout no front limpando o sessionStorage
 
-## Data
-2026-09-30
-
 ## Status
 Aceito
 

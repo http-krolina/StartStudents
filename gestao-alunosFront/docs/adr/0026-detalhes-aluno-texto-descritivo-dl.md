@@ -1,9 +1,6 @@
 # Título
 Detalhes do aluno em texto descritivo com lista de definição
 
-## Data
-2026-10-02
-
 ## Status
 Aceito
 

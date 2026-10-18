@@ -1,9 +1,6 @@
 # Título
 Alternativa neutra para aluno sem foto
 
-## Data
-2026-10-02
-
 ## Status
 Aceito
 

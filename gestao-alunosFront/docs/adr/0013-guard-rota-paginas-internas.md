@@ -1,8 +1,6 @@
 # Título
 Guard de rota para páginas internas protegidas
 
-## Data
-2026-10-01
 
 ## Status
 Aceito

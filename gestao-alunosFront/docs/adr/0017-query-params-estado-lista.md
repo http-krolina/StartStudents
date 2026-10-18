@@ -1,9 +1,6 @@
 # Título
 Estado da listagem preservado nos query params da URL
 
-## Data
-2026-10-01
-
 ## Status
 Aceito
 

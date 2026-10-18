@@ -1,9 +1,6 @@
 # Título
 Mensagem de erro genérica
 
-## Data
-2026-09-30
-
 ## Status
 Aceito
 
