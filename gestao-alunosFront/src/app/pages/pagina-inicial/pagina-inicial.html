@@ -178,7 +178,8 @@
                         class="botao-icone"
                         aria-label="Excluir"
                         title="Excluir"
-                        (click)="excluir(aluno)"
+                        [attr.data-excluir-id]="aluno.id"
+                        (click)="excluir(aluno, $event)"
                       >
                         <svg aria-hidden="true" viewBox="0 0 24 24">
                           <path d="M5 7h14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path>
@@ -263,4 +264,15 @@
     (fechar)="fecharEdicao()"
     (salvo)="aoSalvarEdicao()"
   ></app-aluno-edicao-modal>
+}
+
+@if (alunoExclusaoSelecionado; as alunoExclusao) {
+  <app-aluno-exclusao-modal
+    [alunoId]="alunoExclusao.id"
+    [nome]="alunoExclusao.nome"
+    [matricula]="alunoExclusao.matricula"
+    (fechar)="fecharExclusao()"
+    (excluido)="aoExcluir()"
+    (naoEncontrado)="aoAlunoNaoEncontrado()"
+  ></app-aluno-exclusao-modal>
 }

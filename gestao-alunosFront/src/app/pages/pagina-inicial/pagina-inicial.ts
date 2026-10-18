@@ -16,6 +16,7 @@ import { AlunoLista } from '../../models/aluno-lista';
 import { StatusAluno } from '../../models/status-aluno';
 import { AlunoDetalhesModalComponent } from '../../components/aluno-detalhes-modal/aluno-detalhes-modal';
 import { AlunoEdicaoModalComponent } from '../../components/aluno-edicao-modal/aluno-edicao-modal';
+import { AlunoExclusaoModalComponent } from '../../components/aluno-exclusao-modal/aluno-exclusao-modal';
 import { AlunoService } from '../../services/aluno.service';
 import { AuthService } from '../../services/auth';
 
@@ -27,7 +28,7 @@ type ItemPaginacao = number | '...';
 @Component({
   selector: 'app-pagina-inicial',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, AlunoDetalhesModalComponent, AlunoEdicaoModalComponent],
+  imports: [CommonModule, ReactiveFormsModule, AlunoDetalhesModalComponent, AlunoEdicaoModalComponent, AlunoExclusaoModalComponent],
   templateUrl: './pagina-inicial.html',
   styleUrl: './pagina-inicial.css',
 })
@@ -47,6 +48,8 @@ export class PaginaInicialComponent implements OnInit, OnDestroy {
   private ultimoElementoDetalhes: HTMLElement | null = null;
   private ultimoElementoEdicao: HTMLElement | null = null;
   private ultimoIdEdicao: number | null = null;
+  private ultimoElementoExclusao: HTMLElement | null = null;
+  private ultimoIdExclusao: number | null = null;
 
   readonly buscaControl = new FormControl('', { nonNullable: true });
   readonly statusControl = new FormControl<StatusFiltro>('TODOS', { nonNullable: true });
@@ -65,6 +68,7 @@ export class PaginaInicialComponent implements OnInit, OnDestroy {
   mensagemAcao = '';
   alunoDetalheSelecionadoId: number | null = null;
   alunoEdicaoSelecionadoId: number | null = null;
+  alunoExclusaoSelecionado: AlunoLista | null = null;
 
   readonly perfil = this.authService.obterPerfil();
   readonly login = this.authService.obterLogin() ?? '';
@@ -318,10 +322,52 @@ export class PaginaInicialComponent implements OnInit, OnDestroy {
     });
   }
 
-  excluir(aluno: AlunoLista): void {
-    void aluno;
-    // implementar na próxima feature
-    this.mostrarMensagemAcao('Exclusão de aluno');
+  excluir(aluno: AlunoLista, evento?: Event): void {
+    const alvo = evento?.currentTarget instanceof HTMLElement ? evento.currentTarget : this.document.activeElement;
+    this.ultimoElementoExclusao = alvo instanceof HTMLElement ? alvo : null;
+    this.ultimoIdExclusao = aluno.id;
+    this.mensagemAcao = '';
+    this.alunoExclusaoSelecionado = aluno;
+  }
+
+  fecharExclusao(): void {
+    this.alunoExclusaoSelecionado = null;
+    this.devolverFocoExclusao();
+  }
+
+  aoExcluir(): void {
+    this.alunoExclusaoSelecionado = null;
+    this.mensagemAcao = 'Aluno excluído com sucesso.';
+    this.recarregarAposExclusao();
+    this.devolverFocoExclusao();
+  }
+
+  aoAlunoNaoEncontrado(): void {
+    this.alunoExclusaoSelecionado = null;
+    this.mensagemAcao = 'Aluno não encontrado.';
+    this.recarregarAposExclusao();
+    this.devolverFocoExclusao();
+  }
+
+  // RN-046: se era o único item da página e não é a primeira, volta uma página.
+  private recarregarAposExclusao(): void {
+    if (this.alunos.length === 1 && this.paginaAtual > 0) {
+      this.paginaAtual -= 1;
+    }
+    this.atualizarQueryParamsECarregar();
+  }
+
+  private devolverFocoExclusao(): void {
+    const id = this.ultimoIdExclusao;
+    const anterior = this.ultimoElementoExclusao;
+    this.ultimoElementoExclusao = null;
+    this.ultimoIdExclusao = null;
+
+    setTimeout(() => {
+      const raiz = this.elementRef.nativeElement as HTMLElement;
+      const atual = raiz.querySelector<HTMLElement>(`[data-excluir-id="${id}"]`);
+      (atual ?? (anterior?.isConnected ? anterior : null))?.focus();
+    });
   }
 
   private inicializarFluxos(): void {
@@ -479,7 +525,4 @@ export class PaginaInicialComponent implements OnInit, OnDestroy {
     return Math.min(pagina, totalPaginas - 1);
   }
 
-  private mostrarMensagemAcao(nomeAcao: string): void {
-    this.mensagemAcao = `${nomeAcao} será implementada na próxima feature.`;
-  }
 }

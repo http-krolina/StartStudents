@@ -1,0 +1,33 @@
+<div class="modal-backdrop" (click)="cancelar()">
+	<section
+		#painelModal
+		class="modal-card"
+		role="alertdialog"
+		aria-modal="true"
+		aria-labelledby="titulo-exclusao-aluno"
+		aria-describedby="texto-exclusao-aluno"
+		(click)="$event.stopPropagation()"
+		(keydown)="tratarTecla($event)"
+	>
+		<h2 id="titulo-exclusao-aluno" class="modal-titulo">Confirmar Exclusão</h2>
+
+		<div id="texto-exclusao-aluno" class="modal-texto">
+			<p>Deseja realmente excluir o aluno <strong>{{ nome }}</strong>?</p>
+			<p>Matrícula: <strong>{{ matricula }}</strong></p>
+			<p>O aluno deixará de aparecer entre os ativos.</p>
+		</div>
+
+		@if (mensagemErro) {
+			<p class="erro-modal" role="alert">{{ mensagemErro }}</p>
+		}
+
+		<div class="acoes-modal">
+			<button #botaoCancelar type="button" class="botao-cancelar" [disabled]="excluindo" (click)="cancelar()">
+				Cancelar
+			</button>
+			<button type="button" class="botao-excluir" [disabled]="excluindo" (click)="confirmar()">
+				{{ excluindo ? 'Excluindo...' : 'Excluir' }}
+			</button>
+		</div>
+	</section>
+</div>

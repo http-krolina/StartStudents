@@ -35,3 +35,6 @@
 | 0031 | [Status do aluno como opção de marcar na edição](0031-status-opcao-de-marcar-na-edicao.md) | Aceito |
 | 0032 | [Envio apenas dos campos alterados via PATCH](0032-patch-somente-campos-alterados.md) | Aceito |
 | 0033 | [Confirmação ao sair da edição com alterações não salvas (RN-039)](0033-confirmacao-saida-alteracoes-nao-salvas.md) | Aceito |
+| 0034 | [Modal de confirmação de exclusão com foco inicial em Cancelar](0034-modal-confirmacao-exclusao-foco-cancelar.md) | Aceito |
+| 0035 | [Voltar para a página anterior ao excluir o último item da página](0035-pagina-anterior-ao-excluir-ultimo-item.md) | Aceito |
+| 0036 | [Exclusão lógica: o front chama DELETE e o back inativa o registro](0036-exclusao-logica-delete-inativa.md) | Aceito |

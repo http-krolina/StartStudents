@@ -1,0 +1,75 @@
+.modal-backdrop {
+	position: fixed;
+	inset: 0;
+	z-index: 1000;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 16px;
+	background: rgba(19, 26, 56, 0.6);
+}
+
+.modal-card {
+	width: min(440px, calc(100vw - 32px));
+	border-radius: 20px;
+	background: #ffffff;
+	padding: 24px;
+	box-shadow: 0 24px 48px rgba(7, 18, 46, 0.28);
+	color: #131a38;
+}
+
+.modal-titulo {
+	margin: 0 0 16px;
+	font-size: 1.25rem;
+	font-weight: 700;
+}
+
+.modal-texto p {
+	margin: 0 0 8px;
+	font-size: 0.9375rem;
+	color: #333333;
+}
+
+.erro-modal {
+	margin: 8px 0 0;
+	font-size: 0.875rem;
+	color: #c62828;
+}
+
+.acoes-modal {
+	display: flex;
+	justify-content: flex-end;
+	gap: 12px;
+	margin-top: 20px;
+}
+
+.botao-cancelar,
+.botao-excluir {
+	min-height: 44px;
+	padding: 0 20px;
+	border: none;
+	border-radius: 8px;
+	font: inherit;
+	font-weight: 600;
+	cursor: pointer;
+}
+
+.botao-cancelar {
+	background: #e4e6eb;
+	color: #131a38;
+}
+
+.botao-excluir {
+	background: #d32f2f;
+	color: #ffffff;
+}
+
+button:disabled {
+	opacity: 0.6;
+	cursor: not-allowed;
+}
+
+button:focus-visible {
+	outline: 2px solid #045aaa;
+	outline-offset: 2px;
+}

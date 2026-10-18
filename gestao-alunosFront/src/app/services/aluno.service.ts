@@ -49,6 +49,10 @@ export class AlunoService {
     return this.http.patch<AlunoDetalhe>(`${this.apiUrl}/${id}`, dados);
   }
 
+  excluir(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  }
+
   listar(filtros: ListarAlunosFiltros): Observable<PaginaResponse<AlunoLista>> {
     let params = new HttpParams();
 
