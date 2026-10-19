@@ -3,4 +3,5 @@ export interface AlunoCadastro {
   email: string;
   cpf: string;
   telefone: string;
+  foto?: string;
 }

@@ -38,6 +38,8 @@ export class AlunoNovoComponent implements OnInit, OnDestroy, AlteracoesPendente
   geralErro = '';
   isSubmitting = false;
   possuiAlteracoesPendentes = false;
+  fotoBase64: string | null = null;
+  erroFoto = '';
 
   private readonly queryParams = { ...this.route.snapshot.queryParams };
 
@@ -69,6 +71,37 @@ export class AlunoNovoComponent implements OnInit, OnDestroy, AlteracoesPendente
     return this.form.controls.telefone;
   }
 
+    aoEscolherFoto(evento: Event): void {
+    const input = evento.target as HTMLInputElement;
+    const arquivo = input.files?.[0];
+    input.value = '';
+    if (!arquivo) {
+      return;
+    }
+
+    if (!['image/jpeg', 'image/png'].includes(arquivo.type)) {
+      this.erroFoto = 'A foto deve ser JPEG ou PNG';
+      return;
+    }
+    if (arquivo.size > 5 * 1024 * 1024) {
+      this.erroFoto = 'A foto deve ter no máximo 5 MB';
+      return;
+    }
+
+    this.erroFoto = '';
+    const leitor = new FileReader();
+    leitor.onload = () => {
+      this.fotoBase64 = leitor.result as string;
+      this.possuiAlteracoesPendentes = true;
+    };
+    leitor.readAsDataURL(arquivo);
+  }
+
+  removerFoto(): void {
+    this.fotoBase64 = null;
+    this.erroFoto = '';
+  }
+
   salvar(): void {
     this.form.markAllAsTouched();
     this.geralErro = '';
@@ -81,6 +114,9 @@ export class AlunoNovoComponent implements OnInit, OnDestroy, AlteracoesPendente
     this.limparErroServidor();
 
     const dados = this.form.getRawValue() as AlunoCadastro;
+    if (this.fotoBase64) {
+      dados.foto = this.fotoBase64;
+    }
 
     this.alunoService.cadastrar(dados).subscribe({
       next: (aluno) => {
@@ -139,9 +175,11 @@ export class AlunoNovoComponent implements OnInit, OnDestroy, AlteracoesPendente
       campo.markAsTouched();
     }
 
-    if (resposta.erros?.length) {
+        if (resposta.erros?.length) {
       for (const erro of resposta.erros) {
-        if (!this.form.get(erro.campo)) {
+        if (erro.campo === 'foto') {
+          this.erroFoto = erro.mensagem;
+        } else if (!this.form.get(erro.campo)) {
           errosSemCampo.push(erro.mensagem);
         }
       }

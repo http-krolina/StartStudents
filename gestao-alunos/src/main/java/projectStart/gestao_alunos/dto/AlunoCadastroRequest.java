@@ -24,6 +24,10 @@ public record AlunoCadastroRequest(
 
         @NotBlank(message = "O telefone é obrigatório")
         @Pattern(regexp = "^\\d{10,11}$", message = "O telefone deve conter apenas números e ter 10 ou 11 dígitos")
-        String telefone
+        String telefone,
+
+        @Pattern(regexp = "^$|^data:image/(png|jpeg);base64,[A-Za-z0-9+/=]+$", message = "A foto deve está no formato PNG ou JPEG")
+        @Size(max = 6_990_531, message = "A foto deve ter no máximo 5MB")
+        String foto
 ) {
 }

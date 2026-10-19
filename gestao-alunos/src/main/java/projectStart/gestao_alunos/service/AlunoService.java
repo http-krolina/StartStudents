@@ -76,6 +76,7 @@ public class AlunoService {
                 .cpf(cpf)
                 .telefone(telefone)
                 .status(StatusAluno.ATIVO)
+                .foto(request.foto())
                 .build();
 
         return AlunoDetalheResponse.de(alunoRepository.save(aluno));
@@ -114,6 +115,7 @@ public class AlunoService {
         seInformado(request.nome(),     nome  -> aluno.setNome(nome.trim().replaceAll("\\s+", " ")));
         seInformado(request.telefone(), tel   -> aluno.setTelefone(tel.replaceAll("\\D", "")));
         seInformado(request.status(),   aluno::setStatus);
+        seInformado(request.foto(), foto -> aluno.setFoto(foto.isEmpty() ? null : foto));
 
         return AlunoDetalheResponse.de(alunoRepository.save(aluno));
     }

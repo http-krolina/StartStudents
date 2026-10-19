@@ -1,14 +1,7 @@
 package projectStart.gestao_alunos.domain;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
-import jakarta.persistence.Id;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.EnumType;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.NoArgsConstructor;
@@ -45,7 +38,8 @@ public class Aluno {
         @Column(nullable = false, length = 11)
         private String telefone;
 
-        @Column(length = 255)
+        @Lob
+        @Column(columnDefinition = "CLOB")
         private String foto;
 
         @Enumerated(EnumType.STRING)
