@@ -37,11 +37,24 @@
 			</div>
 		} @else if (aluno) {
 			<form class="conteudo-modal" [formGroup]="form" (ngSubmit)="salvar()" novalidate>
-				<div class="foto-area">
+								<div class="foto-area">
 					@if (possuiFoto()) {
-						<img [src]="aluno.foto" [alt]="'Foto de ' + aluno.nome" class="foto-aluno" />
+						<img [src]="fotoAtual" [alt]="'Foto de ' + aluno.nome" class="foto-aluno" />
 					} @else {
 						<div class="foto-alterna" role="img" aria-label="Aluno sem foto">{{ obterIniciais() }}</div>
+					}
+
+					<div class="acoes-foto">
+						<label for="edicao-foto" class="botao-foto">{{ possuiFoto() ? 'Trocar foto' : 'Adicionar foto' }}</label>
+						<input id="edicao-foto" type="file" accept="image/jpeg,image/png" class="input-foto" (change)="aoEscolherFoto($event)" />
+
+						@if (possuiFoto()) {
+							<button type="button" class="botao-foto botao-remover-foto" (click)="removerFoto()">Remover foto</button>
+						}
+					</div>
+
+					@if (erroFoto) {
+						<p class="erro-campo" role="alert">{{ erroFoto }}</p>
 					}
 				</div>
 

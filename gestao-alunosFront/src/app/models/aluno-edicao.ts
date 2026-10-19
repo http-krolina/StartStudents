@@ -5,4 +5,5 @@ export interface AlunoEdicao {
   email?: string;
   telefone?: string;
   status?: StatusAluno;
+  foto?: string;
 }

@@ -52,3 +52,12 @@
   background: #045aaa;
   border-color: #045aaa;
 }
+
+.foto-previa {
+  display: block;
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin: 8px 0;
+}

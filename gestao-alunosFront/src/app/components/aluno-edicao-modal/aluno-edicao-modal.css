@@ -127,3 +127,43 @@
 	margin: 0;
 	font-size: 0.875rem;
 }
+
+.foto-area {
+	flex-direction: column;
+	align-items: center;
+	gap: 8px;
+}
+
+.acoes-foto {
+	display: flex;
+	gap: 8px;
+}
+
+.input-foto {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	opacity: 0;
+	overflow: hidden;
+}
+
+.botao-foto {
+	padding: 6px 14px;
+	border: 1px solid #045aaa;
+	border-radius: 999px;
+	background: #ffffff;
+	color: #045aaa;
+	font: inherit;
+	font-size: 0.8125rem;
+	cursor: pointer;
+}
+
+.botao-foto:has(+ .input-foto:focus-visible) {
+	outline: 2px solid #045aaa;
+	outline-offset: 2px;
+}
+
+.botao-remover-foto {
+	border-color: #c62828;
+	color: #c62828;
+}

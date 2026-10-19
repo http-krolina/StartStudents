@@ -29,7 +29,15 @@ export class AlunoNovoComponent implements OnInit, OnDestroy, AlteracoesPendente
   private readonly subscription = new Subscription();
 
   readonly form = this.fb.nonNullable.group({
-    nome: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(120), Validators.pattern(NOME_REGEX)]],
+    nome: [
+      '',
+      [
+        Validators.required,
+        Validators.minLength(3),
+        Validators.maxLength(120),
+        Validators.pattern(NOME_REGEX),
+      ],
+    ],
     email: ['', [Validators.required, Validators.email, Validators.maxLength(150)]],
     cpf: ['', [Validators.required, cpfValidator]],
     telefone: ['', [Validators.required, Validators.pattern(TELEFONE_REGEX)]],
@@ -47,7 +55,7 @@ export class AlunoNovoComponent implements OnInit, OnDestroy, AlteracoesPendente
     this.subscription.add(
       this.form.valueChanges.subscribe(() => {
         this.possuiAlteracoesPendentes = this.form.dirty;
-      })
+      }),
     );
   }
 
@@ -71,7 +79,7 @@ export class AlunoNovoComponent implements OnInit, OnDestroy, AlteracoesPendente
     return this.form.controls.telefone;
   }
 
-    aoEscolherFoto(evento: Event): void {
+  aoEscolherFoto(evento: Event): void {
     const input = evento.target as HTMLInputElement;
     const arquivo = input.files?.[0];
     input.value = '';
@@ -145,7 +153,10 @@ export class AlunoNovoComponent implements OnInit, OnDestroy, AlteracoesPendente
   }
 
   cancelar(): void {
-    if (this.possuiAlteracoesPendentes && !window.confirm('Existem alterações não salvas. Deseja sair sem salvar?')) {
+    if (
+      this.possuiAlteracoesPendentes &&
+      !window.confirm('Existem alterações não salvas. Deseja sair sem salvar?')
+    ) {
       return;
     }
 
@@ -175,7 +186,7 @@ export class AlunoNovoComponent implements OnInit, OnDestroy, AlteracoesPendente
       campo.markAsTouched();
     }
 
-        if (resposta.erros?.length) {
+    if (resposta.erros?.length) {
       for (const erro of resposta.erros) {
         if (erro.campo === 'foto') {
           this.erroFoto = erro.mensagem;

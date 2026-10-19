@@ -46,6 +46,20 @@
       }
     </div>
 
+        <div>
+      <label for="foto">Foto (opcional)</label>
+      <input id="foto" type="file" accept="image/jpeg,image/png" (change)="aoEscolherFoto($event)" aria-describedby="foto-erro" />
+
+      @if (fotoBase64) {
+        <img [src]="fotoBase64" alt="Prévia da foto do aluno" class="foto-previa" />
+        <button type="button" (click)="removerFoto()">Remover foto</button>
+      }
+
+      @if (erroFoto) {
+        <p id="foto-erro" role="alert">{{ erroFoto }}</p>
+      }
+    </div>
+
     @if (geralErro) {
       <p role="alert">{{ geralErro }}</p>
     }

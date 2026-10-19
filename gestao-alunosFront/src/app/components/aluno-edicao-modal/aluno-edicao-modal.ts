@@ -32,6 +32,11 @@ import { AlunoService } from '../../services/aluno.service';
 
 const NOME_REGEX = /^[A-Za-zÀ-ÿ '\-]+$/;
 const TELEFONE_REGEX = /^\(?[1-9]{2}\)?\s?(?:[2-5]\d{3}|9\d{4})-?\d{4}$/;
+const TAMANHO_MAXIMO_FOTO = 5 * 1024 * 1024;
+const REGRAS_FOTO: { invalida: (arquivo: File) => boolean; mensagem: string }[] = [
+  { invalida: (arquivo) => !['image/jpeg', 'image/png'].includes(arquivo.type), mensagem: 'A foto deve ser JPEG ou PNG.' },
+  { invalida: (arquivo) => arquivo.size > TAMANHO_MAXIMO_FOTO, mensagem: 'A foto deve ter no máximo 5 MB.' },
+];
 
 type CampoEditavel = 'nome' | 'email' | 'telefone';
 
@@ -40,6 +45,7 @@ interface ValoresNormalizados {
   email: string;
   telefone: string;
   status: StatusAluno;
+  foto: string | null;
 }
 
 function nomeValidator(control: AbstractControl<string>): ValidationErrors | null {
@@ -113,6 +119,8 @@ export class AlunoEdicaoModalComponent implements AfterViewInit, OnChanges, OnDe
   erroGeral = '';
   confirmandoSaida = false;
   errosServidor: Partial<Record<CampoEditavel, string>> = {};
+    fotoAtual: string | null = null;
+  erroFoto = '';
 
   ngAfterViewInit(): void {
     this.document.body.style.overflow = 'hidden';
@@ -290,8 +298,34 @@ export class AlunoEdicaoModalComponent implements AfterViewInit, OnChanges, OnDe
     return (primeira + segunda).toUpperCase();
   }
 
-  possuiFoto(): boolean {
-    return Boolean(this.aluno?.foto);
+    possuiFoto(): boolean {
+    return Boolean(this.fotoAtual);
+  }
+
+  aoEscolherFoto(evento: Event): void {
+    const input = evento.target as HTMLInputElement;
+    const arquivo = input.files?.[0];
+    input.value = '';
+    if (!arquivo) {
+      return;
+    }
+
+    this.erroFoto = REGRAS_FOTO.find((regra) => regra.invalida(arquivo))?.mensagem ?? '';
+    if (this.erroFoto) {
+      return;
+    }
+
+    const leitor = new FileReader();
+    leitor.onload = () => {
+      this.fotoAtual = leitor.result as string;
+      this.erroGeral = '';
+    };
+    leitor.readAsDataURL(arquivo);
+  }
+
+  removerFoto(): void {
+    this.fotoAtual = null;
+    this.erroFoto = '';
   }
 
   formatarCpf(cpf: string): string {
@@ -318,6 +352,7 @@ export class AlunoEdicaoModalComponent implements AfterViewInit, OnChanges, OnDe
       email: valores.email.trim().toLowerCase(),
       telefone: valores.telefone.replace(/\D/g, ''),
       status: valores.status,
+      foto: this.fotoAtual,
     };
   }
 
@@ -338,6 +373,9 @@ export class AlunoEdicaoModalComponent implements AfterViewInit, OnChanges, OnDe
     }
     if (atuais.status !== this.original.status) {
       alteracoes.status = atuais.status;
+    }
+        if (atuais.foto !== this.original.foto) {
+      alteracoes.foto = atuais.foto ?? '';
     }
     return alteracoes;
   }
@@ -376,12 +414,15 @@ export class AlunoEdicaoModalComponent implements AfterViewInit, OnChanges, OnDe
   }
 
   private preencherFormulario(aluno: AlunoDetalhe): void {
-    this.original = {
+        this.original = {
       nome: aluno.nome.trim(),
       email: aluno.email.trim().toLowerCase(),
       telefone: aluno.telefone.replace(/\D/g, ''),
       status: aluno.status,
+      foto: aluno.foto,
     };
+    this.fotoAtual = aluno.foto;
+    this.erroFoto = '';
 
     this.form.reset({
       nome: this.original.nome,
@@ -419,9 +460,12 @@ export class AlunoEdicaoModalComponent implements AfterViewInit, OnChanges, OnDe
       const corpo = error.error as Partial<ErroValidacao> | null;
       let mapeou = false;
 
-      for (const item of corpo?.erros ?? []) {
+            for (const item of corpo?.erros ?? []) {
         if (item.campo === 'nome' || item.campo === 'email' || item.campo === 'telefone') {
           this.errosServidor[item.campo] = item.mensagem;
+          mapeou = true;
+        } else if (item.campo === 'foto') {
+          this.erroFoto = item.mensagem;
           mapeou = true;
         }
       }
